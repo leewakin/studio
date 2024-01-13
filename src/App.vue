@@ -7,6 +7,8 @@ import {
   readVideoFile,
   createCanvas,
   createMediaRecorder,
+  loadLogoImage,
+  toggleLogo,
   drawVideoOnCanvas,
 } from './utils'
 import videoUrl from '@/assets/test.webm'
@@ -33,7 +35,8 @@ async function convert() {
 
   const canvas = createCanvas()
   const recorder = createMediaRecorder(canvas)
-  drawVideoOnCanvas(videoRef, canvas, recorder, cropArea)
+  const logoImage = await loadLogoImage()
+  drawVideoOnCanvas(videoRef, canvas, recorder, cropArea, logoImage)
 }
 
 window.addEventListener('keydown', e => {
@@ -71,6 +74,7 @@ window.addEventListener('keydown', e => {
     <div style="display: flex; flex-direction: column; align-items: center">
       <div>
         <button @click="convert">convert</button>
+        <button @click="toggleLogo">切换logo</button>
       </div>
       <p>按下方向鍵移動，按+/-鍵放大/縮小</p>
     </div>

@@ -1,6 +1,6 @@
 # studio
 
-这是 demo..裁剪视频最简版..没有做任何异常处理..也还没加上 logo 水印等逻辑
+这是 demo..裁剪视频最简版..没有做任何异常处理..
 
 ## Recommended IDE Setup
 

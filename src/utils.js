@@ -38,11 +38,27 @@ export function createMediaRecorder(canvas) {
   return { recorder, chunks }
 }
 
+let shouldDrawLogo = false
+
+export async function loadLogoImage() {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    img.onload = () => resolve(img)
+    img.onerror = reject
+    img.src = new URL('./assets/logo.svg', import.meta.url)
+  })
+}
+
+export function toggleLogo() {
+  shouldDrawLogo = !shouldDrawLogo
+}
+
 export function drawVideoOnCanvas(
   videoRef,
   canvas,
   { recorder, chunks },
-  cropArea
+  cropArea,
+  logoImage
 ) {
   const context = canvas.getContext('2d')
   videoRef.value.addEventListener('play', function () {
@@ -68,6 +84,9 @@ export function drawVideoOnCanvas(
         1920,
         1080
       )
+      if (shouldDrawLogo) {
+        context.drawImage(logoImage, 20, 20, 60, 60) // 在左上角绘制logo
+      }
       if (recorder.state === 'recording') {
         recorder.requestData()
         if (chunks.length > 0) {
